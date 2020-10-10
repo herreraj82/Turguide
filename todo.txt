@@ -1,0 +1,27 @@
+Gibson TODO:
+	xxx Create basic search-field forms 
+	xxx Check relevant PHP methods for search returns
+	*****  Fix PHP headers to get JSON responses
+	xxx Create method for retreiving 10 random Artists/Venues/Events for pages
+	***User favorite artists - all faves and 10 random faves
+	Hash password
+	xxx Account fetching
+	Cookie storage/creation
+	*****  http header and RESTful controller
+	xxx turn testfunctions -> testartist, testvenue, etc
+			Create	Read	Update	Delete
+	artist	1		1				1
+	event	1		1				1
+	venue	1		1				1
+	users	1		1		some	1
+	favArt	1		1				1
+	favVen	1		1				1
+	
+	*** update all iinclude function -> include readfunctions, etc
+	Controller php script that looks at headers (AKA todo.php in full AJAX example, restapitutorial)
+		if POST...
+		if GET...
+	delete old seperated files and put all php in a folder
+		functions -> readfunctions
+		All individual, one-use functions
+Juan TODO:

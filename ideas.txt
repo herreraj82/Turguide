@@ -1,0 +1,86 @@
+Name: türguide
+https://docs.google.com/forms/d/e/1FAIpQLSeaO9PEkxhwaob6lsPjjW4AzDmXBjbsGNpMF4fm_JEjjKmIKQ/viewform?edit2=2_ABaOnufOZD4B4zzdjutP39fEbpc2-lTr7z7zhtz15UqJ1Wp5A9n_QxnULzTBe-E
+Keeping track of bands on tour / in town
+Abilities:
+ACCOUNTS:
+	user accounts that saves favorites
+	possible lists: artists, venues
+	Table: userid | username | favoriteArtists | favoritePlaces - Possible store favorites in seperate tables with fid (uid) and all favorites as different rows
+ARTISTS:
+	Saves current tour locations
+	Table: artistid | bandname | website | homelocation | tourdate | tourlocation - Possible seperate tables with fid(aid) and toudate|location
+LOCATIONS:
+	Saves the different possible locatinos
+	Table: venueid | maxcapacity | address(expand) | dates | artists
+
+	Shows ID with aid,vid fids
+	
+Overall: May seperate out info into a lot of seperate tables, one with basic info and one with id as foreign id that contains the rest of the info (aka artist table only has id, name, webite, homelocation, while tourdate, tourlocation are in linked table)
+
+Redirect to different possible pages to increase interactiveness
+search field
+
+db schema
+
+Accounts
+	accid    : INT(6) UNSIGNED AUTOINCREMENT PRIMARY KEY
+	uname    : VARCHAR(32) NOT NULL
+	password : VARCHAR(100) NOT NULL **HASHED**
+	fname    : VARCHAR(25) 
+	lname    : VARCHAR(25) 
+	home     : VARCHAR(25)
+	
+Artists
+	artid    : INT(6) UNSIGNED AUTOINCREMENT PRIMARY KEY
+	bname    : VARCHAR(50) NOT NULL
+	website  : VARCHAR(50)
+	origin   : VARCHAR(25)
+	members  : VARCHAR(200)
+	imgurl   : VARCHAR(100)
+	
+Venues
+	vid      : INT(6) UNSIGNED AUTOINCREMENT PRIMARY KEY
+	vname    : VARCHAR(50) NOT NULL
+	vcity    : VARCHAR(25)
+	vstate   : VARCHAR(25)
+	maxcap   : INT(5) UNSIGNED
+
+Events
+	evid     : INT(6) UNSIGNED AUTOINCREMENT PRIMARY KEY
+	fk_artid : INT(6) UNSIGNED (fk to artist table)
+	fk_vid   : INT(6) UNSIGNED (fk to venue table)
+	edate    : DATE
+	etime    : VARCHAR(5) (HH:mm)
+	price    : DECIMAL(5,2)
+	head     : TINYINT(1) (1 if headlining band, 0 if not)
+	
+FavArtists
+	fk_accid : INT(6) UNSIGNED (fk to account table)
+	fk_artid : INT(6) UNSIGNED (fk to artist table)
+
+FavVenues
+	fk_accid : INT(6) UNSIGNED (fk to account table)
+	fk_vid   : INT(6) UNSIGNED (fo to venue table)
+
+
+On value readin - eg create account - any blank fields should be set null and that value passed
+	
+	
+	
+Accounts:
+AccountID | UserName | FName | LName | Hometown {| list of artists/etc}
+
+Artists:
+ArtistID | BandName | Website | Origin/location  | Members | Image URL
+
+Venues:
+VenueID | VenueName | VenueCity | VenueState  | MaxCapacity {| Rating if time allows}
+
+Events: (connecting table)
+fkey(ArtistID) | fkey(LocationID) | Eventdate | Time | TicketPrice | (Headliner? Y/N)
+
+FAVORITE ARTISTS: (connecting table)
+fkey(AccountID) | fkey(ArtistID)
+
+FAVORITE LOCATIONS: (connecting table)
+fkey(AccountID) | fkey(LocationID)
